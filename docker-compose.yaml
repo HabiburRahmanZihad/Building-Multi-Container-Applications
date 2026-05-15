@@ -12,7 +12,7 @@ services:
       - ph-pg-data:/var/lib/postgresql/data
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d ph_health"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d ph_health" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -20,7 +20,7 @@ services:
 
   ph-server:
     container_name: ph-server
-    build: 
+    build:
       context: ./server
       dockerfile: Dockerfile
     restart: unless-stopped
@@ -45,7 +45,7 @@ services:
 
   ph-client:
     container_name: ph-client
-    build: 
+    build:
       context: ./client
       dockerfile: Dockerfile
     restart: unless-stopped
@@ -68,7 +68,6 @@ services:
     working_dir: /app
     command: sh -lc "CI=true pnpm install && pnpm exec next dev --webpack -H 0.0.0.0 -p 3000"
 
-
 networks:
   ph-net:
     driver: bridge
@@ -78,5 +77,4 @@ volumes:
   server-node-modules:
   server-logs:
   client-node-modules:
-
 
